@@ -1,0 +1,12 @@
+{
+  "name": "shenai-sdk",
+  "version": "2.4.0-beta.5",
+  "description": "Shen.ai Web SDK",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "shenai-sdk": "file:"
+  }
+}
