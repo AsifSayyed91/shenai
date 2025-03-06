@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"
+    />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <script type="module">
+      import CreateShenaiSDK from "./shenai-sdk/index.mjs";
+      const API_KEY = "d460362e987d4329958e9b959aaa847d";
+      const USER_ID = "";
+      CreateShenaiSDK().then((shenai) => {
+        shenai.initialize(
+          API_KEY,
+          USER_ID,
+          {
+            hideShenaiLogo: false,
+            measurementPreset:
+              shenai.MeasurementPreset.FOURTY_FIVE_SECONDS_UNVALIDATED,
+            eventCallback: (event) => {
+              console.log("Shen.AI event:", event);
+            },
+            onCameraError: () => console.log("camera error"),
+          },
+          (result) => {
+            if (result === shenai.InitializationResult.OK) {
+              console.log("Shen.AI initialized (license activated)");
+            } else {
+              alert("Shen.AI license activation error " + result.toString());
+            }
+          }
+        );
+        window.shenai = shenai; // to be able to access shenai from the browser console
+      });
+    </script>
+    <style>
+      body {
+        margin: 0;
+      }
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #mxcanvas {
+        aspect-ratio: 480/894;
+        max-width: 100%;
+        max-height: 100%;
+      }
+      @media (max-aspect-ratio: 480/894) {
+        #mxcanvas {
+          width: 100%;
+          height: auto;
+        }
+      }
+      @media (min-aspect-ratio: 480/894) {
+        #mxcanvas {
+          height: 100%;
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <canvas id="mxcanvas"></canvas>
+    </div>
+  </body>
+</html>
